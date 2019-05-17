@@ -1,0 +1,11 @@
+{
+  "name": "umuzi_recruitment",
+  "version": "1.0.0",
+  "description": "Backend API for the Umuzi recruitment",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Wonder13oy",
+  "license": "ISC"
+}
