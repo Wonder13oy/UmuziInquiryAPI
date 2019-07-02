@@ -1,11 +1,17 @@
 {
-  "name": "umuzi_recruitment",
-  "version": "1.0.0",
-  "description": "Backend API for the Umuzi recruitment",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon app.js"
-  },
-  "author": "Wonder13oy",
-  "license": "ISC"
+	"name": "umuzi_recruitment",
+	"version": "1.0.0",
+	"description": "Backend API for the Umuzi recruitment",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon app.js"
+	},
+	"author": "Wonder13oy",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.19.0",
+		"cors": "^2.8.5",
+		"dotenv": "^8.0.0",
+		"express": "^4.17.1"
+	}
 }
