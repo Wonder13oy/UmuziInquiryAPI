@@ -3,70 +3,78 @@ const router = express.Router();
 const Modal = require('../models/prospectModal');
 
 //Get all posts
-router.get('/', (req, res) => {
-	res.send('We are on prospects');
-});
-
-router.get('/viewProspects', async (req, res) => {
-	try {
-		const posts = await Modal.find();
-		res.json(posts);
-	} catch (error) {
-		console.log(error);
-	}
+router.get('/viewProspects', (req, res, next) => {
+	res.status(200).json({
+		message: 'Handling GET requests /prospects/viewProspects',
+	});
 });
 
 //Adding a post
-router.post('/addNewProspect', async (req, res) => {
-	const post = new Modal({
+router.post('/addNewProspect', (req, res, next) => {
+	console.log('Adding Prospect');
+
+	// const model = new Modal({
+	// 	name: req.body.name,
+	// 	surname: req.body.surname,
+	// 	age: req.body.age,
+	// 	date: new Date(),
+	// 	inquiry: req.body.inquiry,
+	// 	assistedBy: req.body.assistedBy,
+	// });
+
+	const prospect = {
 		name: req.body.name,
 		surname: req.body.surname,
 		age: req.body.age,
 		date: req.body.date,
 		inquiry: req.body.inquiry,
 		assistedBy: req.body.assistedBy,
-	});
+	};
 
-	try {
-		const savedModal = await post.save();
-		res.json(savedModal);
-	} catch (error) {
-		console.log(error);
-	}
+	const model = new Modal(prospect);
+
+	model
+		.save()
+		.then(result => {
+			console.log(result);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+
+	res.status(201).json({
+		message: 'Handling POST requests /prospects/addNewProspect',
+		newProspect: prospect,
+	});
 });
 
 //Get a specific post
-router.get('/viewProspect::Id', async (req, res) => {
-	try {
-		const post = await Modal.findById(req.params.Id);
-		res.json(post);
-	} catch (error) {
-		console.log(error);
+router.get('/viewProspect::Id', (req, res, next) => {
+	const id = req.params.Id;
+	if (id === 'special') {
+		res.status(200).json({
+			message: 'You discovered a special ID',
+			id: id,
+		});
+	} else {
+		res.status(200).json({
+			message: 'You passed an ID',
+		});
 	}
 });
 
 //Delete specific post
-router.delete('/deleteProspect::Id', async (req, res) => {
-	try {
-		const removedProspect = await Modal.remove({ _id: req.params.Id });
-		res.json(removedProspect);
-	} catch (error) {
-		console.log(error);
-	}
+router.delete('/deleteProspect::Id', (req, res, next) => {
+	res.status(200).json({
+		message: 'Deleted prospect',
+	});
 });
 
 //Update a post
-router.patch('/updateProspect::Id', async (req, res) => {
-	try {
-		const updatedProspect = await Modal.updateOne(
-			{ _id: req.params.Id },
-			{ $set: { name: req.body.name, surname: req.body.surname } },
-		);
-
-		res.json(updatedProspect);
-	} catch (error) {
-		console.log(error);
-	}
+router.patch('/updateProspect::Id', (req, res, next) => {
+	res.status(200).json({
+		message: 'Updated info',
+	});
 });
 
 module.exports = router;
